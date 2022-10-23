@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+ 
+{% load static %}
+ 
+{% load crispy_forms_tags %}
+ 
+{% block header %}
+
+{% endblock %}
+
+{% block conteudo %}
+<div class="container py-5">
+ 
+    <div class="row mt-5">
+        <div class="col-lg">
+            <h3>{{ titulo }}</h3>
+        </div>
+    </div>
+ 
+    <div class="row">
+        <div class="col-lg-5">
+            {% if request.user.is_authenticated %}
+            <h4 class="mt-4 text-danger">Você não pode fazer isso!</h4>
+            Redirecionando para a página inicial em 5 segundos...
+            <meta http-equiv="Refresh" content="5; url={% url 'index' %}" />
+            {% else %}
+            <form method="post">
+                <!-- Todo formulário tem que ter essa validação -->
+                {% csrf_token %}
+                <!-- Gera o formulário -->
+                {{ form|crispy }}
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">
+                        {{ botao|default:"Realizar Login" }}
+                    </button>
+                    <a href={% url 'auto-registro' %} class="btn btn-light">
+                        Registrar-se
+                    </a>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+ 
+</div>
+{% endblock %}

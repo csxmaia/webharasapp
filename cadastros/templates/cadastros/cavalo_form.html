@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+<div class="container">
+    <h2 class="mt-4">{{ titulo|default:"Cadastrar" }}</h2>
+
+    <p class="lead">
+        * Campo obrigatório
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <button class="btn btn-primary" type="submit">
+            {{ botao|default:"Salvar" }}
+        </button>
+    </form>
+    <script>
+        //TODO: melhor apresentar as imagens
+        const imagemInput = document.getElementById('id_imagem');
+        {% for obj in imagens %}
+            let elem{{obj.id}} = document.createElement('p');
+            // add text
+            elem{{obj.id}}.innerText = "{{obj.imagem.url}}";
+            imagemInput.parentNode.insertBefore(elem{{obj.id}}, imagemInput);
+        {% endfor %}
+
+        var uploadedImages = document.createElement('div');
+        imagemInput.parentNode.insertBefore(uploadedImages, imagemInput);
+        
+        imagemInput.addEventListener('change', (event) => {
+            let { files } = event.target
+            let fileNames = "" 
+            for(let i = 0; i < files.length; i++) {
+                fileNames += files[i].name + " \</br\>"
+            }
+            uploadedImages.innerHTML = fileNames
+        })
+    </script>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+{% endblock %}

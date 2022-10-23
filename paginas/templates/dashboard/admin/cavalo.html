@@ -1,0 +1,61 @@
+{% extends './admin.html' %}
+
+{% load static %}
+
+{% block conteudo_dashboard %}
+<div class="pb-2">
+    <h2>Cavalos pendentes de aprovação<h2>
+</div>
+<div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for cavalo in todos_cavalos_em_analise %}
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                    <p class="card-text">
+                        {{cavalo.obj.cavalo.descricao}}
+                    </p>
+                    <div class="h-100 d-flex align-items-end">
+                        <p class="card-text gap-2">
+                            <a href="#" class="btn btn-primary">Aprovar</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted">Modificado em {{cavalo.obj.cavalo.modificado_em|date:'d/m/Y'}} às {{cavalo.obj.cavalo.modificado_em|date:'H:i'}}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="pb-2">
+    <h2>Cavalos<h2>
+</div>
+<div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for cavalo in todos_cavalos_aprovados %}
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                    <p class="card-text">
+                        {{cavalo.obj.cavalo.descricao}}
+                    </p>
+                    <div class="h-100 d-flex align-items-end">
+                        <p class="card-text gap-2">
+                            <a href="#" class="btn btn-primary">Vendido</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted">Modificado em {{cavalo.obj.cavalo.modificado_em|date:'d/m/Y'}} às {{cavalo.obj.cavalo.modificado_em|date:'H:i'}}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

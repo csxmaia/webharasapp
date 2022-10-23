@@ -1,0 +1,101 @@
+{% extends './user.html' %}
+
+{% load static %}
+
+{% block conteudo_dashboard %}
+<div class="d-flex justify-content-between pb-2">
+    <h2>Cavalos<h2>
+    <a href="{% url 'cadastrar-cavalo' %}" class="btn btn-primary"><div class="d-flex align-items-center"><i class="fas fa-add fa-sm fa-fw text-gray-600 me-1"></i> Cadastrar Cavalo</div></a>
+</div>
+
+{% if todos_cavalos_usuario_EM_ANALISE %}
+<div class="pb-2">
+    <h2>Cavalos em análise para aprovação administrativa<h2>
+</div>
+<div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for cavalo in todos_cavalos_usuario_EM_ANALISE %}
+        <div class="col d-flex justify-content-center">
+            <div class="card shadow-sm" style="width: 18rem;">
+                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <div class="card-body">
+                    <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                    <p class="card-text">
+                        {{cavalo.obj.cavalo.descricao}} </br>
+                        {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
+                    </p>
+                    {% if cavalo.obj.cavalo.status|upper == 'APROVADO'%}
+                        <div class="badge bg-success">
+                        <i class="fas fa-check fa-sm fa-fw"></i>
+                    {% elif cavalo.obj.cavalo.status|upper == 'EM ANÁLISE'%}
+                        <div class="badge bg-info">
+                        <i class="fas fa-clock fa-sm fa-fw"></i>
+                    {% elif cavalo.obj.cavalo.status|upper == 'VENDIDO'%}
+                        <div class="badge bg-success">
+                        <i class="fas fa-money-check-dollar fa-sm fa-fw"></i>
+                    {% else %}
+                        <div class="badge bg-secondary text-white">
+                    {% endif %}
+                        {{cavalo.obj.cavalo.status}}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text">
+                        <a href="{% url 'editar-cavalo' cavalo.obj.cavalo.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if todos_cavalos_usuario_NAO_EM_ANALISE %}
+<div class="pb-2">
+    <h2>Cavalos cadastrados e aprovados</h2>
+</div>
+<div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for cavalo in todos_cavalos_usuario_NAO_EM_ANALISE %}
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <div class="card-body">
+                    <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                    <p class="card-text">
+                        {{cavalo.obj.cavalo.descricao}} </br>
+                        {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
+                    </p>
+                    {% if cavalo.obj.cavalo.status|upper == 'APROVADO'%}
+                        <div class="badge bg-success">
+                        <i class="fas fa-check fa-sm fa-fw"></i>
+                    {% elif cavalo.obj.cavalo.status|upper == 'EM ANÁLISE'%}
+                        <div class="badge bg-info">
+                        <i class="fas fa-clock fa-sm fa-fw"></i>
+                    {% elif cavalo.obj.cavalo.status|upper == 'VENDIDO'%}
+                        <div class="badge bg-success">
+                        <i class="fas fa-light fa-wallet fa-sm fa-fw"></i>
+                    {% else %}
+                        <div class="badge bg-secondary text-white">
+                    {% endif %}
+                        {{cavalo.obj.cavalo.status}}
+                    </div>
+                </div>
+                 <div class="card-footer">
+                    <p class="card-text">
+                        <a href="{% url 'editar-cavalo' cavalo.obj.cavalo.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if not todos_cavalos_usuario_EM_ANALISE and not todos_cavalos_usuario_NAO_EM_ANALISE %}
+<h4>Você não possui cavalos cadastrados</h4>
+{% endif %}
+
+{% endblock %}

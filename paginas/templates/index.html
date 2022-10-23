@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+<div>
+    Imagem
+    <div class="bg-light">
+        <div class="container d-flex flex-column justify-content-center py-4">
+            <div class="d-flex justify-content-center pb-2">
+                <h4>Filtrar animais</h4>
+            </div>
+            <form action="?" method="GET">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <select class="form-select" name="raca" id="filtro-raca">
+                            <option value></option>
+                            {% for raca in racas %}
+                                {% if request.GET.raca|lower == raca.nome|lower %}
+                                    <option selected value={{raca.nome|lower}}>{{raca.nome}}</option>
+                                {% else %}
+                                    <option value={{raca.nome|lower}}>{{raca.nome}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" name="pelagem" id="filtro-pelagem">
+                            <option value></option>
+                            {% for pelagem in pelagens %}
+                                {% if request.GET.pelagem|lower == pelagem.nome|lower %}
+                                    <option selected value={{pelagem.nome|lower}}>{{pelagem.nome}}</option>
+                                {% else %}
+                                    <option value={{pelagem.nome|lower}}>{{pelagem.nome}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                     <div class="col-4">
+                        <select class="form-select" name="genero" id="filtro-genero">
+                            <option value></option>
+                            {% for genero in generos %}
+                                {% if request.GET.genero|lower == genero.tipo|lower %}
+                                    <option selected value={{genero.tipo|lower}}>{{genero.tipo}}</option>
+                                {% else %}
+                                    <option value={{genero.tipo|lower}}>{{genero.tipo}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <select class="form-select" name="habilidade" id="filtro-habilidade">
+                            <option value></option>
+                            {% for habilidade in habilidades %}
+                                {% if request.GET.habilidade|lower == habilidade.tipo|lower %}
+                                    <option selected value={{habilidade.tipo|lower}}>{{habilidade.tipo}}</option>
+                                {% else %}
+                                    <option value={{habilidade.tipo|lower}}>{{habilidade.tipo}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success">Aplicar filtro</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="py-3">
+            <h2>Cavalos</h2>
+        </div>
+        <div>
+            <div class="row row-cols-1 row-cols-md-5 g-4">
+                {% for cavalo in cavalos %}
+                <div class="col d-flex justify-content-center">
+                    <div id="cavalo-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})">
+                        <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+
+                        <div class="card-body">
+                            <div class="mb-1">
+                                <h5 class="h5 card-title mb-0">{{cavalo.obj.cavalo.nome}}</h5>
+                                <div class="card-text text-muted">
+                                    {{cavalo.obj.cavalo.raca.nome}}
+                                </div>
+                            </div>
+                            <div class="card-text text-muted">
+                                {{cavalo.obj.cavalo.cidade.nome}} - {{cavalo.obj.cavalo.cidade.estado.sigla}}
+                            </div>
+                            <div class="card-text"><h4 class="h4">R$ {{cavalo.obj.cavalo.preco}}</h4></div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts%}
+<script>
+    function navigateToCavaloObject(id) {
+        let card = document.getElementById("cavalo-" + id)
+        dataUrl = card.getAttribute("data-url")
+        window.location.assign(dataUrl);
+    }
+</script>
+{% endblock %}

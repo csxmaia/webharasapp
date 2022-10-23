@@ -1,0 +1,55 @@
+TODO
+	
+	IMPLEMENTAR
+		*Criar paginas de excluir
+			abrir modal com informacoes e quando clicar em excluir, vai para a pagina e retorna com base na navegação...
+		incluir atributos na classe user
+		Tela para modificar senha
+		tela para modificar informações do usuario
+	
+	CORRIGIR
+		Limitar tamanho de imagem nos cards
+		Ajustar botão que envia para dashboard de cavalos - dashboard admin
+		menu dashboard está "cliente" para ambos
+		Erro ao entrar em cavalo sem imagem...
+	
+	IMPLEMENTAR AJUSTE
+		adicionar nome do cavalo na url
+		alterar o nome da imagem ao salvar a imagem
+		Melhorar visualização de cavalos do card - dashboard cliente
+		ordernar visualizacao dos cavalos - dashboard admin
+		-Descrição textArea - cadastrar cavalos
+		Filtrar as buscas por cavalo pelo usuario logado no dashboard
+		filter ou tag para os status do cavalo
+	
+	Possibilitar o cadastro de haras	
+
+	
+ 
+ DOING
+	Paginação
+	**Filtros tela inicial
+	Visualizar imagens - no cadastro
+ 
+ DONE
+	Visualizar imagens na miniatura - tela inicial
+	Status do cavalo no card - dashboard cliente
+	Possibilitar que cavalos já cadastrados sejam editados - dashboard cliente (garantir que voltará para análise)
+	Implementar acesso por grupos
+	Visualizar imagens na tela especifica - tela do registro
+	mostrar id como "referencia" na tela do cavalo especifico
+	icones nos status do dashboard do usuario
+	tela de auto registro		
+	
+	
+quando implementar react
+	Visualizar imagens - no cadastro
+	Visualizar imagens - no update
+	
+quando implementar rest
+	**Tela de aprovação
+	*Criar botão que seta cavalo como vendido
+	
+quando implementar formularios many to many
+	implementar arvore arqueologica, ancestrais
+	-implementar cadastro de diversos videos por links

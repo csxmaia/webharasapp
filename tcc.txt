@@ -1,0 +1,37 @@
+TODO
+
+	OBJETIVO
+	→ Geral é único!!! Verbo no infinitivo na 3º pessoa (regra específica da escrita formal).
+	
+
+
+TO RESOLVE
+
+	- Verifique com o orientador se é necessário descrever o procedimento informal de uma pesquisa – pode ser pior do que não descrever. // há algo que devo remover?
+	→ Verificar o nível de detalhamento dos objetivos gerais e se é necessário expor as que não irão agregar informação. // não encontrei o que ele quis apontar
+	
+
+DOING
+
+
+
+DONE
+
+Dar uma olhada para ver se a introdução está ok, pois melhorei a contextualização pela problematica e motivação
+
+reescrevi a justificativa anterior
+
+"Verificar o nível de detalhamento dos objetivos gerais e se é necessário expor as que não irão agregar informação."
+O objetivo geral tem muito detalhe que se tornou uma necessidade verificar informações que não irão agregar no projeto?
+
+"Verifique com o orientador se é necessário descrever o procedimento informal de uma pesquisa – pode ser pior do que não descrever."
+vi novamente algumas coisa e corrigi, da maneira que está, está ok?
+
+"As informações da apresentação geral de cada resultado encontrado são relevantes e necessários?"
+acredito que sim, por contextualizar e apresentar cada resultado, ou compreendi errado?
+
+"TABELA COMPARATIVA - Até este tópico, foram apresentadas informações ou há contexto para entender a coerência e relevância das funcionalidades?"
+Devo mover o topico de trabalhos corelatos para outro local? após os requisitos funcionais por exemplo? isso que entendi sobre esse ponto...
+
+Coloque um texto explicativo após a apresentação da tabela – ajuda o leitor a entender a tabela.
+apenas um texto para apresnetar como entender a tabela?

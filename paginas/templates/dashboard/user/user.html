@@ -1,0 +1,8 @@
+{% extends 'components/dashboard.html' %}
+
+{% load static %}
+
+{% block menu_dashboard %}
+<a class="active" href="{% url 'dashboard-cavalos' %}">Cavalos</a>
+<a href="{% url 'listar-pelagens' %}">Haras</a>
+{% endblock %}

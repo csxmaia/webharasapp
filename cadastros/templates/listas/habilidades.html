@@ -1,0 +1,43 @@
+{% extends 'dashboard/admin/admin.html' %}
+
+{% load static %}
+
+{% block conteudo_dashboard %}
+    <div class="container">
+        <div class="row mt-4 mb-8">
+            <div class="col">
+                <h1 class="mb-0">Lista de Habilidades</h1>
+            </div>
+            <div class="col d-flex align-self-end justify-content-end">
+                <a href="{% url 'cadastrar-habilidade' %}" class="btn btn-primary">Cadastrar Habilidades</a>
+            </div>
+        </div>
+
+        <table class="table table-stripped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for obj in object_list %}
+                    <tr>
+                        <td>{{ obj.pk }}</td>
+                        <td>{{ obj.tipo }}</td>
+                        <td>
+                            <a href="{% url 'editar-habilidade' obj.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
+                            {% comment %} <a href="{% url 'excluir-pelagem' obj.pk %}" class="btn btn-danger">Excluir</a> {% endcomment %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="100%">Nenhum registro encontrado.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

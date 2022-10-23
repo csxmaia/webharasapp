@@ -1,0 +1,13 @@
+{% extends 'components/dashboard.html' %}
+
+{% load static %}
+
+{% block menu_dashboard %}
+<a href="{% url 'listar-racas' %}">Cavalos</a>
+<hr/>
+<span><i class="fas fa-cog fa-sm fa-fw text-gray-600"></i> <span class="text-gray-600">Administrativo</span></span>
+<a href="{% url 'listar-racas' %}">Raças</a>
+<a href="{% url 'listar-pelagens' %}">Pelagens</a>
+<a href="{% url 'listar-habilidades' %}">Habilidades</a>
+<a href="{% url 'listar-generos' %}">Generos</a>
+{% endblock %}
