@@ -17,7 +17,9 @@
         {% for cavalo in todos_cavalos_usuario_EM_ANALISE %}
         <div class="col d-flex justify-content-center">
             <div class="card shadow-sm" style="width: 18rem;">
-                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <img 
+                id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
@@ -60,7 +62,9 @@
         {% for cavalo in todos_cavalos_usuario_NAO_EM_ANALISE %}
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
-                <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                <img 
+                id="object-nao_em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('nao_em_analise', {{cavalo.obj.cavalo.pk}})"
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
@@ -98,4 +102,14 @@
 <h4>Você não possui cavalos cadastrados</h4>
 {% endif %}
 
+{% endblock %}
+
+{% block scripts%}
+<script>
+    function navigateToObject(unique_id, id) {
+        let card = document.getElementById("object-" + unique_id + "-" + id)
+        dataUrl = card.getAttribute("data-url")
+        window.location.assign(dataUrl);
+    }
+</script>
 {% endblock %}
