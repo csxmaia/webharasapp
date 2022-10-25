@@ -28,6 +28,9 @@ class CavaloCreate(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.criado_por = self.request.user
         form.instance.modificado_por = self.request.user
+        form.instance.proprietario = self.request.user
+        form.instance.status = "EM ANÁLISE"
+        
         url = super().form_valid(form)
         
         files = self.request.FILES.getlist("imagem")
@@ -68,7 +71,6 @@ class CavaloUpdate(LoginRequiredMixin, UpdateView):
         return self.object
 
     def form_valid(self, form):
-        print("form valid !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         form.instance.modificado_por = self.request.user
         form.instance.status = "EM ANÁLISE"
         url = super().form_valid(form)
