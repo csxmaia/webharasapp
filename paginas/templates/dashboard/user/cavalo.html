@@ -19,27 +19,14 @@
             <div class="card shadow-sm" style="width: 18rem;">
                 <img 
                 id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
-                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
                         {{cavalo.obj.cavalo.descricao}} </br>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% if cavalo.obj.cavalo.status|upper == 'APROVADO'%}
-                        <div class="badge bg-success">
-                        <i class="fas fa-check fa-sm fa-fw"></i>
-                    {% elif cavalo.obj.cavalo.status|upper == 'EM ANÁLISE'%}
-                        <div class="badge bg-info">
-                        <i class="fas fa-clock fa-sm fa-fw"></i>
-                    {% elif cavalo.obj.cavalo.status|upper == 'VENDIDO'%}
-                        <div class="badge bg-success">
-                        <i class="fas fa-money-check-dollar fa-sm fa-fw"></i>
-                    {% else %}
-                        <div class="badge bg-secondary text-white">
-                    {% endif %}
-                        {{cavalo.obj.cavalo.status}}
-                    </div>
+                    {% include "components/status_badget.html" with status=cavalo.obj.cavalo.status %}
                 </div>
                 <div class="card-footer">
                     <p class="card-text">
@@ -64,27 +51,14 @@
             <div class="card" style="width: 18rem;">
                 <img 
                 id="object-nao_em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('nao_em_analise', {{cavalo.obj.cavalo.pk}})"
-                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
                         {{cavalo.obj.cavalo.descricao}} </br>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% if cavalo.obj.cavalo.status|upper == 'APROVADO'%}
-                        <div class="badge bg-success">
-                        <i class="fas fa-check fa-sm fa-fw"></i>
-                    {% elif cavalo.obj.cavalo.status|upper == 'EM ANÁLISE'%}
-                        <div class="badge bg-info">
-                        <i class="fas fa-clock fa-sm fa-fw"></i>
-                    {% elif cavalo.obj.cavalo.status|upper == 'VENDIDO'%}
-                        <div class="badge bg-success">
-                        <i class="fas fa-light fa-wallet fa-sm fa-fw"></i>
-                    {% else %}
-                        <div class="badge bg-secondary text-white">
-                    {% endif %}
-                        {{cavalo.obj.cavalo.status}}
-                    </div>
+                    {% include "components/status_badget.html" with status=cavalo.obj.cavalo.status %}
                 </div>
                  <div class="card-footer">
                     <p class="card-text">

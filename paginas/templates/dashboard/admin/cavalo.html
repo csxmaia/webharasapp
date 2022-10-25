@@ -13,7 +13,7 @@
             <div class="card" style="width: 18rem;">
                 <img 
                     id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
-                    src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                    src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
@@ -42,16 +42,14 @@
             <div class="card" style="width: 18rem;">
                 <img 
                 id="object-aprovado-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('aprovado', {{cavalo.obj.cavalo.pk}})"
-                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
                         {{cavalo.obj.cavalo.descricao}}
                     </p>
                     <div class="h-100 d-flex align-items-end">
-                        <p class="card-text gap-2">
-                            <a href="#" class="btn btn-primary">Vendido</a>
-                        </p>
+                        {% include "components/status_badget.html" with status=cavalo.obj.cavalo.status %}
                     </div>
                 </div>
                 <div class="card-footer">

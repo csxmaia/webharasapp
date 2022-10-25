@@ -48,7 +48,7 @@ class DashboardAdminCavalos(GroupRequiredMixin, LoginRequiredMixin, TemplateView
         context['todos_cavalos_em_analise'] = todos_cavalos_EM_ANALISE
 
         todos_cavalos_APROVADOS = []
-        todos_cavalos_APROVADOS_query = Cavalo.objects.filter(status="APROVADO").order_by('-id')
+        todos_cavalos_APROVADOS_query = Cavalo.objects.exclude(status="EM ANÁLISE").order_by('-id')
         for cavalo in todos_cavalos_APROVADOS_query:
             cavalo_obj = {'obj': {'cavalo': cavalo,
                                   "imagens": Imagem.objects.filter(cavalo=cavalo)}}
