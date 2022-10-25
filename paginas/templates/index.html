@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load replace %}
+
 {% block conteudo %}
 <div>
     Imagem
@@ -10,16 +12,16 @@
             <div class="d-flex justify-content-center pb-2">
                 <h4>Filtrar animais</h4>
             </div>
-            <form action="?" method="GET">
+            <form id="index-form" action="?" method="GET">
                 <div class="row justify-content-center">
                     <div class="col-4">
                         <select class="form-select" name="raca" id="filtro-raca">
                             <option value></option>
                             {% for raca in racas %}
-                                {% if request.GET.raca|lower == raca.nome|lower %}
-                                    <option selected value={{raca.nome|lower}}>{{raca.nome}}</option>
+                                {% if request.GET.raca|replace:"_| "|lower == raca.nome|lower %}
+                                    <option selected value={{raca.nome|lower|replace:" |_"}}>{{raca.nome}}</option>
                                 {% else %}
-                                    <option value={{raca.nome|lower}}>{{raca.nome}}</option>
+                                    <option value={{raca.nome|lower|replace:" |_"}}>{{raca.nome}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -28,10 +30,10 @@
                         <select class="form-select" name="pelagem" id="filtro-pelagem">
                             <option value></option>
                             {% for pelagem in pelagens %}
-                                {% if request.GET.pelagem|lower == pelagem.nome|lower %}
-                                    <option selected value={{pelagem.nome|lower}}>{{pelagem.nome}}</option>
+                                {% if request.GET.pelagem|replace:"_| "|lower == pelagem.nome|lower %}
+                                    <option selected value={{pelagem.nome|lower|replace:" |_"}}>{{pelagem.nome}}</option>
                                 {% else %}
-                                    <option value={{pelagem.nome|lower}}>{{pelagem.nome}}</option>
+                                    <option value={{pelagem.nome|lower|replace:" |_"}}>{{pelagem.nome}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -40,10 +42,10 @@
                         <select class="form-select" name="genero" id="filtro-genero">
                             <option value></option>
                             {% for genero in generos %}
-                                {% if request.GET.genero|lower == genero.tipo|lower %}
-                                    <option selected value={{genero.tipo|lower}}>{{genero.tipo}}</option>
+                                {% if request.GET.genero|replace:"_| "|lower == genero.tipo|lower %}
+                                    <option selected value={{genero.tipo|lower|replace:" |_"}}>{{genero.tipo}}</option>
                                 {% else %}
-                                    <option value={{genero.tipo|lower}}>{{genero.tipo}}</option>
+                                    <option value={{genero.tipo|lower|replace:" |_"}}>{{genero.tipo}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -52,10 +54,10 @@
                         <select class="form-select" name="habilidade" id="filtro-habilidade">
                             <option value></option>
                             {% for habilidade in habilidades %}
-                                {% if request.GET.habilidade|lower == habilidade.tipo|lower %}
-                                    <option selected value={{habilidade.tipo|lower}}>{{habilidade.tipo}}</option>
+                                {% if request.GET.habilidade|replace:"_| "|lower == habilidade.tipo|lower %}
+                                    <option selected value={{habilidade.tipo|lower|replace:" |_"}}>{{habilidade.tipo}}</option>
                                 {% else %}
-                                    <option value={{habilidade.tipo|lower}}>{{habilidade.tipo}}</option>
+                                    <option value={{habilidade.tipo|lower|replace:" |_"}}>{{habilidade.tipo}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -75,7 +77,7 @@
             <div class="row row-cols-1 row-cols-md-5 g-4">
                 {% for cavalo in cavalos %}
                 <div class="col d-flex justify-content-center">
-                    <div id="cavalo-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})">
+                    <div id="object-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})">
                         <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
 
                         <div class="card-body">
@@ -100,9 +102,27 @@
 {% endblock %}
 
 {% block scripts%}
+<script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
 <script>
-    function navigateToCavaloObject(id) {
-        let card = document.getElementById("cavalo-" + id)
+     $(document).ready(function() {
+        $("#index-form").submit(function() {
+            if($("#filtro-raca").val()=="") {
+                $("#filtro-raca").attr("disabled", "disabled");
+            }
+            if($("#filtro-pelagem").val()=="") {
+                $("#filtro-pelagem").attr("disabled", "disabled");
+            }
+            if($("#filtro-genero").val()=="") {
+                $("#filtro-genero").attr("disabled", "disabled");
+            }
+            if($("#filtro-habilidade").val()=="") {
+                $("#filtro-habilidade").attr("disabled", "disabled");
+            }
+        });
+     });
+    function navigateToObject(id) {
+        let card = document.getElementById("object-" + id)
         dataUrl = card.getAttribute("data-url")
         window.location.assign(dataUrl);
     }
