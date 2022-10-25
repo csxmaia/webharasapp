@@ -13,8 +13,9 @@
                 <h4>Filtrar animais</h4>
             </div>
             <form id="index-form" action="?" method="GET">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center" style="row-gap: 12px;">
                     <div class="col-4">
+                        <label class="text-muted" for="filtro-raca">Raça</label>
                         <select class="form-select" name="raca" id="filtro-raca">
                             <option value></option>
                             {% for raca in racas %}
@@ -27,6 +28,7 @@
                         </select>
                     </div>
                     <div class="col-4">
+                        <label class="text-muted" for="filtro-pelagem">Pelagem</label>
                         <select class="form-select" name="pelagem" id="filtro-pelagem">
                             <option value></option>
                             {% for pelagem in pelagens %}
@@ -39,6 +41,7 @@
                         </select>
                     </div>
                      <div class="col-4">
+                        <label class="text-muted" for="filtro-genero">Gênero</label>
                         <select class="form-select" name="genero" id="filtro-genero">
                             <option value></option>
                             {% for genero in generos %}
@@ -51,6 +54,7 @@
                         </select>
                     </div>
                     <div class="col-4">
+                        <label class="text-muted" for="filtro-habilidade">Habilidade</label>
                         <select class="form-select" name="habilidade" id="filtro-habilidade">
                             <option value></option>
                             {% for habilidade in habilidades %}
@@ -77,7 +81,7 @@
             <div class="row row-cols-1 row-cols-md-5 g-4">
                 {% for cavalo in cavalos %}
                 <div class="col d-flex justify-content-center">
-                    <div id="object-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})">
+                    <div id="object-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})" role="button">
                         <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo">
 
                         <div class="card-body">
