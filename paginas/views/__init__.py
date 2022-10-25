@@ -23,18 +23,21 @@ class IndexView(TemplateView):
         filters = Q()
         print( self.request.GET.get('raca'))
         if self.request.GET.get('raca') is not None:
-            filters &= Q(raca__nome__iexact=self.request.GET.get('raca'))
+            raca = self.request.GET.get('raca').replace("_", " ")
+            filters &= Q(raca__nome__iexact=raca)
         if self.request.GET.get('pelagem') is not None:
-            filters &= Q(pelagem__nome__iexact=self.request.GET.get('pelagem'))
+            pelagem = self.request.GET.get('pelagem').replace("_", " ")
+            filters &= Q(pelagem__nome__iexact=pelagem)
         if self.request.GET.get('genero') is not None:
-            filters &= Q(genero__tipo__iexact=self.request.GET.get('genero'))
+            genero = self.request.GET.get('genero').replace("_", " ")
+            filters &= Q(genero__tipo__iexact=genero)
         if self.request.GET.get('habilidade') is not None:
-            filters &= Q(habilidade__tipo__iexact=self.request.GET.get('habilidade'))
+            habilidade = self.request.GET.get('habilidade').replace("_", " ")
+            filters &= Q(habilidade__tipo__iexact=habilidade)
 
-        cavalos_query = Cavalo.objects.filter(filters).order_by('id')
-        # cavalos = Cavalo.objects.order_by('-id')
+        cavalos_query = Cavalo.objects.filter(filters).order_by('-id')
 
-        paginator = Paginator(cavalos_query, 10)
+        paginator = Paginator(cavalos_query, 100)
 
         page_number = 1
 
