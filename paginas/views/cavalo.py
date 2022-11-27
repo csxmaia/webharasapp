@@ -1,8 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from cadastros.models import Cavalo, Imagem
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import redirect
+from django.contrib import messages
 
 class DashboardUserCavalos(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/user/cavalo.html'
@@ -70,3 +72,15 @@ class VisualizarCavalo(TemplateView):
         context['imagens'] = imagens
 
         return context
+
+class AlterarStatusCavalo(View):
+    def get(self, request, pk, status):
+        user = request.user
+        if user.is_authenticated:
+            cavalo = get_object_or_404(Cavalo, pk=pk)
+
+            if cavalo:
+                cavalo.status = status
+                cavalo.save()
+
+                return redirect("admin-dashboard-cavalos")

@@ -1,0 +1,90 @@
+{% extends './admin.html' %}
+
+{% load static %}
+
+{% block conteudo_dashboard %}
+
+<div>
+    <form method="POST">
+        <div class="d-flex mb-2">
+            <div class="d-flex flex-column">
+                <div>
+                    <strong>ID: </strong> {{cavalo.id}}
+                </div>
+                <div>
+                    <strong>Nome: </strong> {{cavalo.nome}}
+                </div>
+                <div>
+                    <strong>Preço: </strong> {{cavalo.preco}}
+                </div>
+                <div>
+                    <strong>Raça: </strong> {{cavalo.raca.nome}}
+                </div>
+                <div>
+                    <strong>Gênero: </strong> {{cavalo.genero.tipo}}
+                </div>
+                <div>
+                    <strong>Habilidade: </strong> {{cavalo.habilidade.tipo}}
+                </div>
+                <div>
+                    <strong>Pelagem: </strong> {{cavalo.pelagem.nome}}
+                </div>
+                <div>
+                    <strong>Gênero: </strong> {{cavalo.genero.tipo}}
+                </div>
+                <div>
+                    <strong>Localização: </strong> {{cavalo.cidade.nome}} - {{cavalo.cidade.estado.nome}}
+                </div>
+                <div>
+                    <strong>Descrição: </strong> {{cavalo.descricao}}
+                </div>
+                <div>
+                    <strong>Data de nascimento: </strong> {{cavalo.data_nascimento|date:'d/m/Y'}}
+                </div>
+            </div>
+
+            <div class="container w-25">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        {% for imagem in imagens %}
+                            {% if forloop.first %}
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="active" aria-current="true" aria-label="Slide {{ forloop.counter0 }}"></button>
+                            {% else %}
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                        {% for imagem in imagens %}
+                            {% if forloop.first %}
+                                <div class="carousel-item active">
+                                    <img src={{imagem.imagem.url}} class="d-block w-100" alt="...">
+                                </div>
+                            {% else %}
+                                <div class="carousel-item">
+                                    <img src={{imagem.imagem.url}} class="d-block w-100" alt="...">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if imagens|length != 1 %}
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit">
+            Aprovar
+        </button>
+    </form>
+</div>
+
+{% endblock %}

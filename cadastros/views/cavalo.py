@@ -1,6 +1,4 @@
-from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import get_list_or_404, get_object_or_404
@@ -8,10 +6,6 @@ from django.urls import reverse_lazy
 from cadastros.forms.cavalo import CavaloImagemForm
 
 from cadastros.models import Cavalo, Imagem
-
-class CavalosList(LoginRequiredMixin, ListView):
-    model = Cavalo
-    template_name = 'listas/racas.html'
 
 class CavaloCreate(LoginRequiredMixin, CreateView):
     form_class = CavaloImagemForm
@@ -40,6 +34,11 @@ class CavaloCreate(LoginRequiredMixin, CreateView):
         messages.success(self.request, "Cavalo salvo com sucesso.")
         messages.success(self.request, "Seu cavalo está em análise.")
         return url
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class CavaloUpdate(LoginRequiredMixin, UpdateView):
@@ -84,3 +83,8 @@ class CavaloUpdate(LoginRequiredMixin, UpdateView):
         messages.success(self.request, "Cavalo alterado com sucesso.")
         messages.success(self.request, "Seu cavalo está em análise.")
         return url
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs

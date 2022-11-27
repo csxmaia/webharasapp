@@ -6,8 +6,11 @@ TODO
 		incluir atributos na classe user
 		Tela para modificar senha
 		tela para modificar informações do usuario
+		envio de email ao cavalo ser aprovado
 	
 	CORRIGIR
+		
+		
 		Limitar tamanho de imagem nos cards
 		Ajustar botão que envia para dashboard de cavalos - dashboard admin
 		menu dashboard está "cliente" para ambos
@@ -20,18 +23,20 @@ TODO
 		ordernar visualizacao dos cavalos - dashboard admin
 		-Descrição textArea - cadastrar cavalos
 		Filtrar as buscas por cavalo pelo usuario logado no dashboard
-		filter ou tag para os status do cavalo
 	
 	Possibilitar o cadastro de haras	
 
 	
  
  DOING
-	Paginação
-	**Filtros tela inicial
 	Visualizar imagens - no cadastro
- 
+	Criar pagina de aprovação
+	
+	
+	
  DONE
+	filter ou tag para os status do cavalo
+	Paginação
 	Visualizar imagens na miniatura - tela inicial
 	Status do cavalo no card - dashboard cliente
 	Possibilitar que cavalos já cadastrados sejam editados - dashboard cliente (garantir que voltará para análise)
@@ -40,6 +45,8 @@ TODO
 	mostrar id como "referencia" na tela do cavalo especifico
 	icones nos status do dashboard do usuario
 	tela de auto registro		
+	
+	
 	
 	
 quando implementar react

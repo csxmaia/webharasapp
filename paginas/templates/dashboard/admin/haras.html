@@ -1,0 +1,78 @@
+{% extends './admin.html' %}
+
+{% load static %}
+{% load make_list %}
+
+{% block conteudo_dashboard %}
+<div class="pb-2">
+    <h2>Haras pendentes de aprovação<h2>
+</div>
+<div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% make_list 'VENDIDO' as desabilitar %}
+        {% for haras in todos_cavalos_em_analise %}
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img 
+                    id="object-em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk %}" onclick="navigateToObject('em_analise', {{haras.pk}})"
+                    src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{haras.nome}}</h5>
+                    <div class="card-text">
+                        <span class="max-lines mb-2">
+                            {{haras.descricao}}
+                        </span>
+                    </div>
+                    <div class="h-100 d-flex align-items-end">
+                        {% include "components/status_badget.html" with objectclass='haras' id=haras.pk status=haras.status desabilitar_list=desabilitar %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted">Modificado em {{haras.modificado_em|date:'d/m/Y'}} às {{haras.modificado_em|date:'H:i'}}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="pb-2">
+    <h2>Haras<h2>
+</div>
+<div class="row row-cols-1 row-cols-md-5 g-4">
+        {% make_list 'APROVADO' as desabilitar %}
+        {% for haras in todos_cavalos_aprovados %}
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img 
+                id="object-aprovado-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk %}" onclick="navigateToObject('aprovado', {{haras.pk}})"
+                src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{haras.nome}}</h5>
+                    <p class="card-text">
+                        <span class="max-lines mb-2">
+                            {{haras.descricao}}
+                        </span>
+                    </p>
+                    <div class="h-100 d-flex align-items-end">
+                        {% include "components/status_badget.html" with objectclass='haras' id=haras.pk status=haras.status desabilitar_list=desabilitar %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted">Modificado em {{haras.modificado_em|date:'d/m/Y'}} às {{haras.modificado_em|date:'H:i'}}</small></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts%}
+<script>
+    function navigateToObject(unique_id, id) {
+        let card = document.getElementById("object-" + unique_id + "-" + id)
+        dataUrl = card.getAttribute("data-url")
+        window.location.assign(dataUrl);
+    }
+</script>
+{% endblock %}

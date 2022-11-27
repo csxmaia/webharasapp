@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div>
-                    <h3>ÁRVORE ARQUEOLOGICA</h3>
+                    {% comment %} <h3>ÁRVORE ARQUEOLOGICA</h3> {% endcomment %}
                 </div>
             </div>
 
@@ -96,13 +96,17 @@
                         </div>
 
                         <div class="my-2 text-success">
-                            <p class="h2 mb-0">R$ {{cavalo.preco}}</p>
+                            <p class="h2 mb-0">R$ <span class="valor">{{cavalo.preco}}</span></p>
                         </div>
 
                         <div class="d-flex flex-column">
-                            <strong>Entrar em contato com o vendedor:</strong>
-                            <!-- TODO: usuario whatsapp -->
-                            whatsapp
+                            <strong>Entre em contato com o vendedor:</strong>
+                            <div class="d-flex flex-column ms-3">
+                                <span>
+                                    Whatsapp: <a href="https://wa.me/55{{cavalo.proprietario.perfil.whatsapp}}" target="_blank"><span class="telefone">{{cavalo.proprietario.perfil.whatsapp}}</span></a>
+                                </span>
+                                <span>Telefone Fixo: <span class="telefone">{{cavalo.proprietario.perfil.telefone}}</span></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,11 +131,13 @@
                             </div>
                             <div class="col">
                                 <!-- TODO: idade-->
-                                Idade: <span class="fw-bold">xx Anos e xx Meses ({{cavalo.data_nascimento|date:'d/m/Y'}})</span>
+                                Data de Nascimento: <span class="fw-bold">({{cavalo.data_nascimento|date:'d/m/Y'}})</span>
                             </div>
+                            {% if cavalo.registro %}
                             <div class="col">
                                 Registro: <strong>{{cavalo.registro}}</strong>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -143,7 +149,23 @@
                     <div class="row">
                         <div class="row row-cols-1">
                             <div class="col">
-                                Nome: <strong>{{user.first_name}} {{user.last_name}}</strong>
+                                Nome: <strong>{{cavalo.proprietario.perfil.nome_completo.split.0}}</strong>
+                            </div>
+                            <div class="col">
+                                Cidade: <strong>{{cavalo.proprietario.perfil.cidade.nome}} - {{cavalo.proprietario.perfil.cidade.estado.sigla}}</strong>
+                            </div>
+                            <div class="col">
+                                Contatos: 
+                            </div>
+                            <div class="col ms-3">
+                                <div class="col">
+                                    <span>
+                                        Whatsapp: <strong><a href="https://wa.me/55{{cavalo.proprietario.perfil.whatsapp}}" target="_blank"><span class="telefone">{{cavalo.proprietario.perfil.whatsapp}}</span></a></strong>
+                                    </span>
+                                </div>
+                                <div class="col">
+                                    <span>Telefone Fixo: <strong><span class="telefone">{{cavalo.proprietario.perfil.telefone}}</span></strong></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,4 +174,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.valor').mask('#.##0,00', {reverse: true});
+            $('.telefone').mask((val) => { return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 90000-0000' });
+        })
+    </script> 
 {% endblock %}

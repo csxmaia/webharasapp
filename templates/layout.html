@@ -15,6 +15,14 @@
     {% endblock %}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/all.css' %}" type="text/css" rel="stylesheet">
+    <style>
+        .max-lines {
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+    </style>
 </head>
  
 <body>
@@ -28,6 +36,10 @@
                     <ul class="navbar-nav ml-auto gap-3">
                         <li class="nav-item d-flex align-items-center">
                             <a class="btn btn-primary" href={% url 'cadastrar-cavalo' %}>Cadastre seu Cavalo</a>
+                        </li>
+
+                        <li class="nav-item d-flex align-items-center">
+                            <a class="btn btn-primary" href={% url 'cadastrar-haras' %}>Cadastre seu Haras</a>
                         </li>
 
                         {% if request.user.is_authenticated %}
@@ -50,13 +62,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in">
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href={% url 'meus-dados' %}>
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Meus dados
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#">
+                                    <a class="dropdown-item" href={% url 'alterar-senha' %}>
                                         <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Alterar senha
                                     </a>
@@ -94,7 +106,7 @@
  
     {% block rodape %}
     <div class="footer">
-        Layout Rodapé
+        {% comment %} Layout Rodapé {% endcomment %}
     </div>
     {% endblock %}
  

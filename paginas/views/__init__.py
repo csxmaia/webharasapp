@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import TemplateView
 
 from cadastros.models import Cavalo, Genero, Habilidade, Imagem, Pelagem, Raca
@@ -37,21 +37,25 @@ class IndexView(TemplateView):
 
         cavalos_query = Cavalo.objects.filter(filters).order_by('-id')
 
-        paginator = Paginator(cavalos_query, 100)
+        paginator = Paginator(cavalos_query, 15)
 
-        page_number = 1
+        page_number = self.request.GET.get('page', 1)
 
-        if self.request.GET.get('page') is not None:
-            page_number = self.request.GET.get('page')
+        try:
+            cavalos_query_page = paginator.page(page_number)
+        except PageNotAnInteger:
+            cavalos_query_page = paginator.page(1)
+        except EmptyPage:
+            cavalos_query_page = paginator.page(paginator.num_pages)
 
-        cavalos_query_page = paginator.get_page(page_number)
+        context['cavalos_page'] = cavalos_query_page
 
         cavalos = []
 
         # TODO criar query in()
         for cavalo in cavalos_query_page:
             imagems = Imagem.objects.filter(cavalo=cavalo)
-            cavalo_obj = {'obj': {'cavalo': cavalo, "imagens": Imagem.objects.filter(cavalo=cavalo)}}
+            cavalo_obj = {'obj': {'cavalo': cavalo, "imagens": imagems}}
             cavalos.append(cavalo_obj)
 
         context['cavalos'] = cavalos

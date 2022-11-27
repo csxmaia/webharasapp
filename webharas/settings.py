@@ -76,6 +76,8 @@ TEMPLATES = [
             ],
             'libraries':{
                 'has_group': 'webharas.templatetags.has_group',
+                'query_transform': 'webharas.templatetags.query_transform',
+                'make_list': 'webharas.templatetags.make_list',
                 'replace': 'webharas.templatetags.replace',
             }
         },

@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block conteudo %}
+    <div class="container">
+        <div class="row">
+
+            <div class="container col-8 d-flex flex-column">
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between">
+                        <h2 class="m-0">{{haras.nome}}</h2>
+                        <div class="d-flex bg-light border rounded text-center px-2 fw-bold align-self-center" style="height: fit-content;">
+                            <div><i class="fas fa-location-dot fa-xs fa-fw"></i></div>
+                            <span>{{haras.cidade.nome}} - {{haras.cidade.estado.nome}} ({{haras.cidade.estado.sigla}})</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h6>{{haras.descricao}}</h6>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="mb-3">ANIMAIS CADASTRADOS</h4>
+                    <div class="row row-cols-4" style="row-gap: 16px">
+                        {% for cavalo in cavalos %}
+                            <div class="col d-flex justify-content-center">
+                                <div id="object-{{cavalo.obj.cavalo.pk}}" class="card" style="width: 18rem;" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToCavaloObject({{cavalo.obj.cavalo.pk}})" role="button">
+                                    <img src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" style="height: 140px; object-fit: contain;">
+
+                                    <div class="card-body">
+                                        <div class="mb-1">
+                                            <h5 class="h5 card-title mb-0">{{cavalo.obj.cavalo.nome}}</h5>
+                                            <div class="card-text text-muted">
+                                                {{cavalo.obj.cavalo.raca.nome}}
+                                            </div>
+                                        </div>
+                                        <div class="card-text text-muted">
+                                            {{cavalo.obj.cavalo.cidade.nome}} - {{cavalo.obj.cavalo.cidade.estado.sigla}}
+                                        </div>
+                                         <a href="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" class="btn btn-primary">Mais detalhes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            Nenhum cavalo cadastrado
+                        {% endfor %}
+                        </div>
+                </div>
+            </div>
+
+            <div class="container col-4 d-flex flex-column gap-2">
+                
+                 <img id="logo" src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 220px; object-fit: contain;">
+
+                <div class="bg-light p-2 rounded-3">
+                    <div class="row">
+                        <div class="row row-cols-1">
+                            <div class="col">
+                                <strong>{{haras.nome}}</strong>
+                            </div>
+                            <div class="col mt-1">
+                                <strong>{{haras.cidade.nome}}, {{haras.cidade.estado.nome}}</strong>
+                            </div>
+                            <div class="col mt-1">
+                                <strong>Contato:</strong>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <span class="telefone">{{haras.telefone_primario}}</span> (telefone primário)
+                                </div>
+                                {% if haras.telefone_secundario %}
+                                <div>
+                                    <span class="telefone">{{haras.telefone_secundario}}</span> (telefone secundário)
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col mt-1">
+                                <strong>Proprietario:</strong>
+                            </div>
+                            <div class="col">
+                                {{haras.proprietario.perfil.nome_completo}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.valor').mask('#.##0,00', {reverse: true});
+            $('.telefone').mask((val) => { return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009' });
+        })
+    </script> 
+{% endblock %}

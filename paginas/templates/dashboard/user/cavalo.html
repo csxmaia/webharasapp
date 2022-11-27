@@ -19,14 +19,16 @@
             <div class="card shadow-sm" style="width: 18rem;">
                 <img 
                 id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
-                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
-                        {{cavalo.obj.cavalo.descricao}} </br>
+                        <span class="max-lines mb-2">
+                            {{cavalo.obj.cavalo.descricao}}
+                        </span>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% include "components/status_badget.html" with status=cavalo.obj.cavalo.status %}
+                    {% include "components/status_badget_view.html" with status=cavalo.obj.cavalo.status %}
                 </div>
                 <div class="card-footer">
                     <p class="card-text">
@@ -42,7 +44,7 @@
 
 {% if todos_cavalos_usuario_NAO_EM_ANALISE %}
 <div class="pb-2">
-    <h2>Cavalos cadastrados e aprovados</h2>
+    <h2>Cavalos cadastrados</h2>
 </div>
 <div>
     <div class="row row-cols-1 row-cols-md-5 g-4">
@@ -51,14 +53,16 @@
             <div class="card" style="width: 18rem;">
                 <img 
                 id="object-nao_em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('nao_em_analise', {{cavalo.obj.cavalo.pk}})"
-                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button">
+                src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body">
                     <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                     <p class="card-text">
-                        {{cavalo.obj.cavalo.descricao}} </br>
+                        <span class="max-lines mb-2">
+                            {{cavalo.obj.cavalo.descricao}}
+                        </span>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% include "components/status_badget.html" with status=cavalo.obj.cavalo.status %}
+                    {% include "components/status_badget_view.html" with status=cavalo.obj.cavalo.status %}
                 </div>
                  <div class="card-footer">
                     <p class="card-text">
