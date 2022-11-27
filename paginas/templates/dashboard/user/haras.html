@@ -1,6 +1,7 @@
 {% extends './user.html' %}
 
 {% load static %}
+{% load replace %}
 
 {% block conteudo_dashboard %}
 <div class="d-flex justify-content-between pb-2">
@@ -18,7 +19,7 @@
         <div class="col d-flex justify-content-center">
             <div class="card shadow-sm" style="width: 18rem;">
                 <img 
-                id="object-em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk %}" onclick="navigateToObject('em_analise', {{haras.pk}})"
+                id="object-em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk haras.nome|replace:" |_" %}" onclick="navigateToObject('em_analise', {{haras.pk}})"
                 src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body">
                     <h5 class="card-title">{{haras.nome}}</h5>
@@ -51,7 +52,7 @@
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
                 <img 
-                id="object-nao_em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk %}" onclick="navigateToObject('nao_em_analise', {{haras.pk}})"
+                id="object-nao_em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk nome=haras.nome|replace:" |_" %}" onclick="navigateToObject('nao_em_analise', {{haras.pk}})"
                 src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body">
                     <h5 class="card-title">{{haras.nome}}</h5>

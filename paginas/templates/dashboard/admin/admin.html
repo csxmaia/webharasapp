@@ -3,12 +3,16 @@
 {% load static %}
 
 {% block menu_dashboard %}
-<a class="active" href="{% url 'admin-dashboard-cavalos' %}">Cavalos</a>
-<a href="{% url 'admin-dashboard-haras' %}">Haras</a>
-<hr/>
-<span><i class="fas fa-cog fa-sm fa-fw text-gray-600"></i> <span class="text-gray-600">Administrativo</span></span>
-<a href="{% url 'listar-racas' %}">Raças</a>
-<a href="{% url 'listar-pelagens' %}">Pelagens</a>
-<a href="{% url 'listar-habilidades' %}">Habilidades</a>
-<a href="{% url 'listar-generos' %}">Generos</a>
+    {% with path_name=request.resolver_match.url_name %}
+    <h4>Administrativo</h4>
+    <div class="nav flex-column nav-pills me-3" aria-orientation="vertical">
+        <a class="btn nav-link {% if path_name == "admin-dashboard-cavalos" %} active {% endif %}" href="{% url 'admin-dashboard-cavalos' %}" type="button">Cavalos</a>
+        <a class="btn nav-link {% if path_name == "admin-dashboard-haras" %} active {% endif %}" href="{% url 'admin-dashboard-haras' %}" type="button">Haras</a>
+        <hr/>
+        <a class="btn nav-link {% if path_name == "listar-racas" %} active {% endif %}" href="{% url 'listar-racas' %}" type="button">Raças</a>
+        <a class="btn nav-link {% if path_name == "listar-pelagens" %} active {% endif %}" href="{% url 'listar-pelagens' %}" type="button">Pelagens</a>
+        <a class="btn nav-link {% if path_name == "listar-habilidades" %} active {% endif %}" href="{% url 'listar-habilidades' %}" type="button">Habilidades</a>
+        <a class="btn nav-link {% if path_name == "listar-generos" %} active {% endif %}" href="{% url 'listar-generos' %}" type="button">Generos</a>
+    </div>
+    {% endwith %}
 {% endblock %}

@@ -13,8 +13,7 @@ class CavaloForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        self.fields['haras'].queryset = self.fields['haras'].queryset.filter(
-            proprietario=user)
+        self.fields['haras'].queryset = self.fields['haras'].queryset.filter(status="APROVADO", proprietario=user)
         self.fields['preco'].widget.attrs['class'] = 'money'
 
 class ImagemForm(forms.ModelForm):

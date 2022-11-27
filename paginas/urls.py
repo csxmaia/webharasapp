@@ -1,7 +1,7 @@
 from django.urls import path
 
-from paginas.views.cavalo import AlterarStatusCavalo, DashboardAdminCavalos, DashboardUserCavalos, VisualizarCavalo
-from paginas.views.haras import AlterarStatusHaras, DashboardAdminHaras, DashboardUserHaras, VisualizarHaras
+from paginas.views.cavalo import AlterarStatusCavalo, DashboardAdminCavalos, DashboardUserCavalos, DeletarCavalo, VisualizarCavalo
+from paginas.views.haras import AlterarStatusHaras, DashboardAdminHaras, DashboardUserHaras, DeletarHaras, VisualizarHaras
 
 
 from .views import IndexView
@@ -20,8 +20,11 @@ urlpatterns = [
     # path(ADMIN_DASHBOARD_PATH + 'aprovar/<int:pk>/', AprovarCavalo.as_view(), name="admin-dashboard-aprovar-cavalo"),
 
     path('cavalo/<int:pk>/', VisualizarCavalo.as_view(), name="visualizar-cavalo"),
-    path('haras/<int:pk>/', VisualizarHaras.as_view(), name="visualizar-haras"),
+    path('haras/<int:pk>/<str:nome>', VisualizarHaras.as_view(), name="visualizar-haras"),
 
     path('alterar-status-cavalo/<int:pk>/<str:status>', AlterarStatusCavalo.as_view(), name="alterar-status-cavalo"),
     path('alterar-status-haras/<int:pk>/<str:status>', AlterarStatusHaras.as_view(), name="alterar-status-haras"),
+
+    path('deletar-haras/<int:pk>', DeletarHaras.as_view(), name="deletar-haras"),
+    path('deletar-cavalo/<int:pk>', DeletarCavalo.as_view(), name="deletar-cavalo"),
 ]

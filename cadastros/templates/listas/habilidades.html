@@ -29,7 +29,8 @@
                         <td>{{ obj.tipo }}</td>
                         <td>
                             <a href="{% url 'editar-habilidade' obj.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
-                            {% comment %} <a href="{% url 'excluir-pelagem' obj.pk %}" class="btn btn-danger">Excluir</a> {% endcomment %}
+                            <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletar" data-bs-id="{{obj.pk}}" data-url="{% url 'deletar-'|add:'habilidade' obj.pk %}"><i class="fas fa-trash fa-sm fa-fw "></i></a>
+                            {% include "components/modal_deletar.html" with objectclass_name='a habilidade' %}
                         </td>
                     </tr>
                 {% empty %}

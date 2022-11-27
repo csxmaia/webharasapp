@@ -1,0 +1,33 @@
+<div class="modal fade" id="modalDeletar" tabindex="-1" style="z-index: 9999;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Deletar {{objectclass_name|capfirst}} </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Tem certeza que deseja deletar {{objectclass_name}} selecionado?
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn" data-bs-dismiss="modal">Close</button>
+            <a id="submit-delete" class="btn btn-danger" href="#">Deletar</a>
+        </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var modalDeletar = document.getElementById('modalDeletar')
+    modalDeletar.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget
+        var id = button.getAttribute('data-bs-id')
+
+        var modalTitle = modalDeletar.querySelector('.modal-title')
+        var modalTitleText = modalTitle.textContent
+        modalTitle.textContent = "Deletar {{objectclass_name|capfirst}} " + id
+
+        dataUrl = button.getAttribute("data-url")
+        var submitDelete = modalDeletar.querySelector('#submit-delete')
+        submitDelete.setAttribute("href", dataUrl);
+    })
+</script>

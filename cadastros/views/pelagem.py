@@ -1,10 +1,12 @@
+from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.db import models
 
 from cadastros.models import Pelagem
 
@@ -57,3 +59,21 @@ class PelagemUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         url = super().form_valid(form)
         messages.success(self.request, "Pelagem alterada com sucesso")
         return url
+
+
+class DeletarPelagem(View):
+    def get(self, request, pk):
+        user = request.user
+        if user.is_authenticated:
+            pelagem = get_object_or_404(Pelagem, pk=pk)
+            if pelagem:
+                nome_pelagem = pelagem.nome
+                try:
+                    pelagem.delete()
+                    messages.success(self.request, "{nome_pelagem} deletado com sucesso!".format(
+                        nome_pelagem=nome_pelagem))
+                except models.ProtectedError:
+                    messages.warning(self.request, "{nome_pelagem} é impossivel de ser deletado pois é utilizado em Cavalos já registrados!".format(
+                        nome_pelagem=nome_pelagem))
+
+                return redirect("listar-pelagens")

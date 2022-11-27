@@ -3,6 +3,10 @@
 {% load static %}
 
 {% block menu_dashboard %}
-<a class="active" href="{% url 'dashboard-cavalos' %}">Cavalos</a>
-<a href="{% url 'dashboard-haras' %}">Haras</a>
+{% with path_name=request.resolver_match.url_name %}
+    <div class="nav flex-column nav-pills me-3" aria-orientation="vertical">
+        <a class="btn nav-link {% if path_name == "dashboard-cavalos" %} active {% endif %}" href="{% url 'dashboard-cavalos' %}" type="button">Cavalos</a>
+        <a class="btn nav-link {% if path_name == "dashboard-haras" %} active {% endif %}" href="{% url 'dashboard-haras' %}" type="button">Haras</a>
+    </div>
+{% endwith %}
 {% endblock %}

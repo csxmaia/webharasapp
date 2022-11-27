@@ -1,10 +1,12 @@
+from django.views import View
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import GroupRequiredMixin
 from django.contrib import messages
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.db import models
 
 from cadastros.models import Genero
 
@@ -57,3 +59,21 @@ class GeneroUpdate(GroupRequiredMixin, LoginRequiredMixin, UpdateView):
         url = super().form_valid(form)
         messages.success(self.request, "Gênero alterada com sucesso")
         return url
+
+
+class DeletarGenero(View):
+    def get(self, request, pk):
+        user = request.user
+        if user.is_authenticated:
+            genero = get_object_or_404(Genero, pk=pk)
+            if genero:
+                nome_genero = genero.tipo
+                try:
+                    genero.delete()
+                    messages.success(self.request, "{nome_genero} deletado com sucesso!".format(
+                        nome_genero=nome_genero))
+                except models.ProtectedError:
+                    messages.warning(self.request, "{nome_genero} é impossivel de ser deletado pois é utilizado em Cavalos já registrados!".format(
+                        nome_genero=nome_genero))
+
+                return redirect("listar-generos")

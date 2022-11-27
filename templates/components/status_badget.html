@@ -1,6 +1,6 @@
 {% load static %}
 
-<button id="dropdown-{{id}}" type="button" class="badge btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+<button id="dropdown-{{id}}" type="button" class="badge btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
     {% if status|upper == 'APROVADO'%}
         <i class="me-1 fas fa-check fa-sm fa-fw"></i><span>{{status}}</span></i>
         {% elif status|upper == 'EM ANÁLISE'%}
@@ -13,12 +13,10 @@
 </button>
 <ul class="dropdown-menu">
     <li>
-        {% with dynamic_app_url='aprovar-'|add:'cavalo' %}
         <a id="analise-{{id}}" class="dropdown-item d-flex align-items-center" style="column-gap: 6px;" href="{% url 'alterar-status-'|add:objectclass pk=id status='EM ANÁLISE' %}">
             <div style="height: 10px; width: 10px" class="bg-info"></div>
             Em Análise
         </a>
-        {% endwith %}
     </li>
     <li>
         <a id="reprovar-{{id}}" class="dropdown-item d-flex align-items-center" style="column-gap: 6px;" href="{% url 'alterar-status-'|add:objectclass pk=id status='REPROVADO' %}">
@@ -33,17 +31,22 @@
         </a>
     </li>
     <li>
-        {% with urlss=objectitem %}
         <a id="vendido-{{id}}" class="dropdown-item d-flex align-items-center" style="column-gap: 6px;" href="{% url 'alterar-status-'|add:objectclass pk=id status='VENDIDO' %}">
             <div style="height: 10px; width: 10px" class="bg-success"></div>
             Vendido
         </a>
-        {% endwith %}
+    </li>
+    <li>
+        <button type="button" class="dropdown-item btn btn-danger rounded-0" data-bs-toggle="modal" data-bs-target="#modalDeletar" data-bs-id="{{id}}" data-url="{% url 'deletar-'|add:objectclass pk=id %}">Deletar</button>
+        
     </li>
 </ul>
 
+{% include "components/modal_deletar.html" with objectclass_name='o registro do '|add:objectclass %}
+
 <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
 <script>
+
     switch('{{status}}') {
         case 'EM ANÁLISE': 
             $('#dropdown-{{id}}').addClass('btn-info')

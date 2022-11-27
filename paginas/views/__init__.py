@@ -2,7 +2,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import TemplateView
 
-from cadastros.models import Cavalo, Genero, Habilidade, Imagem, Pelagem, Raca
+from cadastros.models import Cavalo, Cidade, Genero, Habilidade, Imagem, Pelagem, Raca
 
 
 class IndexView(TemplateView):
@@ -19,8 +19,10 @@ class IndexView(TemplateView):
         context['generos'] = generos
         habilidade = Habilidade.objects.all()
         context['habilidades'] = habilidade
+        cidade = Cidade.objects.all()
+        context['cidades'] = cidade
 
-        filters = Q()
+        filters = Q(status="APROVADO")
         print( self.request.GET.get('raca'))
         if self.request.GET.get('raca') is not None:
             raca = self.request.GET.get('raca').replace("_", " ")
@@ -34,6 +36,9 @@ class IndexView(TemplateView):
         if self.request.GET.get('habilidade') is not None:
             habilidade = self.request.GET.get('habilidade').replace("_", " ")
             filters &= Q(habilidade__tipo__iexact=habilidade)
+        if self.request.GET.get('cidade') is not None:
+            cidade = self.request.GET.get('cidade').replace("_", " ")
+            filters &= Q(cidade__nome__iexact=cidade)
 
         cavalos_query = Cavalo.objects.filter(filters).order_by('-id')
 

@@ -49,13 +49,21 @@ class DashboardAdminCavalos(GroupRequiredMixin, LoginRequiredMixin, TemplateView
             todos_cavalos_EM_ANALISE.append(cavalo_obj)
         context['todos_cavalos_em_analise'] = todos_cavalos_EM_ANALISE
 
-        todos_cavalos_APROVADOS = []
-        todos_cavalos_APROVADOS_query = Cavalo.objects.exclude(status="EM ANÁLISE").order_by('-id')
-        for cavalo in todos_cavalos_APROVADOS_query:
+        todos_cavalos_APROVADOS_REPROVADOS = []
+        todos_cavalos_APROVADOS_REPROVADOS_query = Cavalo.objects.filter(status__in=("APROVADO", "REPROVADO")).order_by('-id')
+        for cavalo in todos_cavalos_APROVADOS_REPROVADOS_query:
             cavalo_obj = {'obj': {'cavalo': cavalo,
                                   "imagens": Imagem.objects.filter(cavalo=cavalo)}}
-            todos_cavalos_APROVADOS.append(cavalo_obj)
-        context['todos_cavalos_aprovados'] = todos_cavalos_APROVADOS
+            todos_cavalos_APROVADOS_REPROVADOS.append(cavalo_obj)
+        context['todos_cavalos_aprovados_reprovados'] = todos_cavalos_APROVADOS_REPROVADOS
+
+        todos_cavalos_VENDIDOS = []
+        todos_cavalos_VENDIDOS_query = Cavalo.objects.filter(status="VENDIDO").order_by('-id')
+        for cavalo in todos_cavalos_VENDIDOS_query:
+            cavalo_obj = {'obj': {'cavalo': cavalo,
+                                  "imagens": Imagem.objects.filter(cavalo=cavalo)}}
+            todos_cavalos_VENDIDOS.append(cavalo_obj)
+        context['todos_cavalos_vendidos'] = todos_cavalos_VENDIDOS
 
         return context
 
@@ -68,7 +76,8 @@ class VisualizarCavalo(TemplateView):
         cavalo = get_object_or_404(Cavalo, pk=self.kwargs['pk'])
         context['cavalo'] = cavalo
 
-        imagens = get_list_or_404(Imagem, cavalo=self.kwargs['pk'])
+        # imagens = Imagem.objects.filter(cavalo=self.kwargs['pk'])
+        imagens = get_object_or_404(Imagem, cavalo=self.kwargs['pk'])
         context['imagens'] = imagens
 
         return context
@@ -83,4 +92,19 @@ class AlterarStatusCavalo(View):
                 cavalo.status = status
                 cavalo.save()
 
+                messages.success(self.request, "{nome_cavalo} ({id_cavalo}) alterado para {status}".format(nome_cavalo=cavalo.nome, id_cavalo=cavalo.pk, status=cavalo.status.capitalize()))
+                return redirect("admin-dashboard-cavalos")
+
+
+class DeletarCavalo(View):
+    def get(self, request, pk):
+        user = request.user
+        if user.is_authenticated:
+            cavalo = get_object_or_404(Cavalo, pk=pk)
+            if cavalo:
+                nome_cavalo = cavalo.nome
+                cavalo.delete()
+
+                messages.success(self.request, "{nome_cavalo} deletado com sucesso!".format(
+                    nome_cavalo=nome_cavalo))
                 return redirect("admin-dashboard-cavalos")

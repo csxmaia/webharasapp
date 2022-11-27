@@ -4,48 +4,19 @@
 {% load make_list %}
 
 {% block conteudo_dashboard %}
-<div class="pb-2">
-    <h2>Cavalos pendentes de aprovação<h2>
-</div>
-<div>
-    <div class="row row-cols-1 row-cols-md-5 g-4">
-        {% make_list 'VENDIDO' as desabilitar %}
-        {% for cavalo in todos_cavalos_em_analise %}
-        <div class="col d-flex justify-content-center">
-            <div class="card" style="width: 18rem;">
-                <img 
-                    id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
-                    src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
-                    <p class="card-text">
-                        <span class="max-lines mb-2">
-                            {{cavalo.obj.cavalo.descricao}}
-                        </span>
-                    </p>
-                    <div class="h-100 d-flex align-items-end">
-                        {% include "components/status_badget.html" with objectclass='cavalo' id=cavalo.obj.cavalo.pk status=cavalo.obj.cavalo.status desabilitar_list=desabilitar %}
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <p class="card-text"><small class="text-muted">Modificado em {{cavalo.obj.cavalo.modificado_em|date:'d/m/Y'}} às {{cavalo.obj.cavalo.modificado_em|date:'H:i'}}</small></p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
+<div class="mb-4">
+    <div class="pb-2">
+        <h2>Cavalos pendentes de aprovação<h2>
     </div>
-</div>
-<div class="pb-2">
-    <h2>Cavalos<h2>
-</div>
-<div class="row row-cols-1 row-cols-md-5 g-4">
-        {% make_list 'APROVADO' as desabilitar %}
-        {% for cavalo in todos_cavalos_aprovados %}
+    <div>
+        <div class="row row-cols-1 row-cols-md-5 g-4">
+            {% make_list 'EM ANÁLISE' 'VENDIDO' as desabilitar %}
+            {% for cavalo in todos_cavalos_em_analise %}
             <div class="col d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
                     <img 
-                    id="object-aprovado-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('aprovado', {{cavalo.obj.cavalo.pk}})"
-                    src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
+                        id="object-em_analise-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('em_analise', {{cavalo.obj.cavalo.pk}})"
+                        src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
                         <p class="card-text">
@@ -62,9 +33,75 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </div>
+
+<div class="mb-2">
+    <div class="pb-2">
+        <h2>Cavalos Aprovados e Reprovados<h2>
+    </div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+            {% make_list 'APROVADO' as desabilitar %}
+            {% for cavalo in todos_cavalos_aprovados_reprovados %}
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img 
+                        id="object-aprovado-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('aprovado', {{cavalo.obj.cavalo.pk}})"
+                        src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                            <p class="card-text">
+                                <span class="max-lines mb-2">
+                                    {{cavalo.obj.cavalo.descricao}}
+                                </span>
+                            </p>
+                            <div class="h-100 d-flex align-items-end">
+                                {% include "components/status_badget.html" with objectclass='cavalo' id=cavalo.obj.cavalo.pk status=cavalo.obj.cavalo.status desabilitar_list=desabilitar %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text"><small class="text-muted">Modificado em {{cavalo.obj.cavalo.modificado_em|date:'d/m/Y'}} às {{cavalo.obj.cavalo.modificado_em|date:'H:i'}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+
+<div class="mb-2">
+    <div class="pb-2">
+        <h2>Cavalos Vendidos<h2>
+    </div>
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+            {% make_list 'REPROVADO' 'EM ANÁLISE' as desabilitar %}
+            {% for cavalo in todos_cavalos_vendidos %}
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 18rem;">
+                        <img 
+                        id="object-aprovado-{{cavalo.obj.cavalo.pk}}" data-url="{% url 'visualizar-cavalo' cavalo.obj.cavalo.pk %}" onclick="navigateToObject('aprovado', {{cavalo.obj.cavalo.pk}})"
+                        src={{cavalo.obj.imagens.0.imagem.url}} class="card-img-top" alt="cavalo" role="button" style="height: 140px; object-fit: contain;">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{cavalo.obj.cavalo.nome}}</h5>
+                            <p class="card-text">
+                                <span class="max-lines mb-2">
+                                    {{cavalo.obj.cavalo.descricao}}
+                                </span>
+                            </p>
+                            <div class="h-100 d-flex align-items-end">
+                                {% include "components/status_badget.html" with objectclass='cavalo' id=cavalo.obj.cavalo.pk status=cavalo.obj.cavalo.status desabilitar_list=desabilitar %}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <p class="card-text"><small class="text-muted">Modificado em {{cavalo.obj.cavalo.modificado_em|date:'d/m/Y'}} às {{cavalo.obj.cavalo.modificado_em|date:'H:i'}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+    </div>
+</div>
+
 {% endblock %}
 
 {% block scripts%}

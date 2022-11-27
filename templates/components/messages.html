@@ -1,8 +1,17 @@
  {% if messages %}
         {% for message in messages %}
-            <div aria-live="polite" aria-atomic="true" class="position-relative">
-                <div class="toast-container fixed bottom-0 end-0 p-3">
-                    <div class="toast align-items-center bg-success bg-gradient" role="alert" aria-live="assertive" aria-atomic="true">
+            <div aria-live="polite" aria-atomic="true" class="position-relative" style="z-index:99999;">
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div class="toast align-items-center 
+                    {% if message.tags == 'success' %}
+                    bg-success
+                    {% elif message.tags == 'warning' %}
+                    bg-warning
+                    {% else %}
+                    bg-primary
+                    {% endif %}
+                    bg-gradient
+                    " role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="d-flex">
                             <div class="toast-body text-white fw-bold">
                                 {{message}}
