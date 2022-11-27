@@ -7,8 +7,8 @@
         <div class="row">
 
             <div class="container col-6 d-flex flex-column gap-4">
-                <div class="bg-dark bg-opacity-50">
-                    <div class="p-2">
+                <div>
+                    <div>
                        
                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-indicators">
@@ -87,13 +87,14 @@
                                 <h2 class="h2">{{cavalo.nome}}</h2>
                             </div>
                             <div>
-                                <span>Referencia: 000{{cavalo.id}}</span>
+                                <span>Ref. 000{{cavalo.id}}</span>
                             </div>
                         </div>
 
-                        <div>
+                        <div class="box-descricao">
                             <p class="text-muted mb-1">{{cavalo.descricao}}</p>
                         </div>
+                        <a id="veja-mais" href="javascript:void(0)" class="show-btn text-muted mb-1">Veja mais</a>
 
                         <div class="my-2 text-white d-flex">
                             <p class="h2 mb-0 bg-success py-1 px-2">R$ <span class="valor">{{cavalo.preco}}</span></p>
@@ -174,11 +175,31 @@
             </div>
         </div>
     </div>
+    <style>
+        .box-descricao {
+            max-height: 8rem;
+            margin-bottom: 0;
+            overflow: hidden;
+            font-size: 13px !important;
+            line-height: 25px !important;
+            font-family: "Poppins", sans-serif;
+            transition: all 1s;
+            clear: both;
+        }
+
+        .box--more-mode {
+            max-height: initial;
+        }
+    </style>
 {% endblock %}
 {% block scripts %}
     <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
     <script src="{% static 'js/jquery.mask.min.js' %}"></script>
     <script>
+        $(".show-btn").on("click", function () {
+            $(".box-descricao").toggleClass("box--more-mode");
+            $("#veja-mais").hide()
+        });
         $(document).ready(function() {
             $('.valor').mask('#.##0,00', {reverse: true});
             $('.telefone').mask((val) => { return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 90000-0000' });

@@ -77,7 +77,7 @@ class Cavalo(models.Model):
     nome = models.CharField(max_length=70, verbose_name="Nome")
     preco = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="Preço")
     data_nascimento = models.DateTimeField(verbose_name="Data de nascimento")
-    descricao = models.CharField(max_length=255, verbose_name="Descrição")
+    descricao = models.CharField(max_length=1500, verbose_name="Descrição")
     raca = models.ForeignKey(Raca, on_delete=models.PROTECT, verbose_name="Raça")
     pelagem = models.ForeignKey(Pelagem, on_delete=models.PROTECT, verbose_name="Pelagem")
     genero = models.ForeignKey(Genero, on_delete=models.PROTECT, verbose_name="Genero")

@@ -8,17 +8,20 @@
         <div class="row">
 
             <div class="container col-8 d-flex flex-column mt-3 mb-3">
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col-6">
-                        <div>
-                            <h2 class="m-0">{{haras.nome}}</h2>
+                        <div class="mb-2">
+                            <h2 class="mb-2">{{haras.nome}}</h2>
                             <div class="d-flex bg-light border rounded text-center px-2 fw-bold align-self-center" style="width: fit-content;">
                                 <div><i class="fas fa-location-dot fa-xs fa-fw"></i></div>
                                 <span>{{haras.cidade.nome}} - {{haras.cidade.estado.nome}} ({{haras.cidade.estado.sigla}})</span>
                             </div>
                         </div>
                         <div>
-                            <h6>{{haras.descricao}}</h6>
+                            <div class="box-descricao">
+                                <p class="text-muted mb-1">{{haras.descricao}}</p>
+                            </div>
+                            <a id="veja-mais" href="javascript:void(0)" class="show-btn text-muted mb-1">Veja mais</a>
                         </div>
                     </div>
 
@@ -35,7 +38,7 @@
                 </div>
 
                 <div>
-                    <h4 class="mb-3">ANIMAIS CADASTRADOS</h4>
+                    <h4 class="mb-2">ANIMAIS CADASTRADOS</h4>
                     <div class="row row-cols-4" style="row-gap: 16px">
                         {% for cavalo in cavalos %}
                             <div class="col d-flex justify-content-center">
@@ -108,11 +111,31 @@
             </div>
         </div>
     </div>
+    <style>
+        .box-descricao {
+            max-height: 3rem;
+            margin-bottom: 0;
+            overflow: hidden;
+            font-size: 13px !important;
+            line-height: 25px !important;
+            font-family: "Poppins", sans-serif;
+            transition: all 1s;
+            clear: both;
+        }
+
+        .box--more-mode {
+            max-height: initial;
+        }
+    </style>
 {% endblock %}
 {% block scripts %}
     <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
     <script src="{% static 'js/jquery.mask.min.js' %}"></script>
     <script>
+        $(".show-btn").on("click", function () {
+            $(".box-descricao").toggleClass("box--more-mode");
+            $("#veja-mais").hide()
+        });
         $(document).ready(function() {
             $('.valor').mask('#.##0,00', {reverse: true});
             $('.telefone').mask((val) => { return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009' });

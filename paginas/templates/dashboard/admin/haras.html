@@ -15,7 +15,7 @@
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
                 <img 
-                    id="object-em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk haras.nome %}" onclick="navigateToObject('em_analise', {{haras.pk}})"
+                    id="object-em_analise-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk haras.nome|replace:' |-' %}" onclick="navigateToObject('em_analise', {{haras.pk}})"
                     src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{haras.nome}}</h5>
@@ -45,7 +45,7 @@
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
                 <img 
-                id="object-aprovado-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk haras.nome|replace:" |" %}" onclick="navigateToObject('aprovado', {{haras.pk}})"
+                id="object-aprovado-{{haras.pk}}" data-url="{% url 'visualizar-haras' haras.pk haras.nome|replace:' |-' %}" onclick="navigateToObject('aprovado', {{haras.pk}})"
                 src={{haras.logo.url}} class="card-img-top" alt="haras" role="button" style="height: 140px; object-fit: contain;">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{haras.nome}}</h5>
