@@ -58,7 +58,7 @@
                         <li class="nav-item dropdown">
                             <a class="btn btn-light nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa-solid fa-user text-gray-400 me-1"></i>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600">{{ request.user }}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600">{% if request.user.perfil.nome_completo %}{{request.user.perfil.nome_completo.split.0}}{% else %}{{ request.user }}{% endif %}</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end shadow animated--grow-in">
                                 <li>

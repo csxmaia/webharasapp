@@ -23,6 +23,9 @@ class Perfil(models.Model):
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT, verbose_name="Cidade", null=True)
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
+    def get_primeiro_nome(self):
+        return self.nome_completo.split[0]
+
     def __str__(self):
         return self.nome_completo
 

@@ -76,8 +76,7 @@ class VisualizarCavalo(TemplateView):
         cavalo = get_object_or_404(Cavalo, pk=self.kwargs['pk'])
         context['cavalo'] = cavalo
 
-        # imagens = Imagem.objects.filter(cavalo=self.kwargs['pk'])
-        imagens = get_object_or_404(Imagem, cavalo=self.kwargs['pk'])
+        imagens = Imagem.objects.filter(cavalo=self.kwargs['pk'])
         context['imagens'] = imagens
 
         return context
