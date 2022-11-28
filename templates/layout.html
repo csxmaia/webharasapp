@@ -15,6 +15,7 @@
     {% endblock %}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/all.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/jquery.dataTables.min.css' %}" type="text/css" rel="stylesheet">
     <style>
         .max-lines {
             overflow: hidden;
@@ -114,6 +115,8 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
 
     <script>
             var toastElList = [].slice.call(document.querySelectorAll('.toast'))
@@ -122,6 +125,9 @@
             })
             //TODO: colocar um timer para exibir outros toasts 
             toastList.forEach(toast => toast.show()) 
+            $(document).ready( function () {
+                $('.dataTable').DataTable();
+            } );
     </script>
     {% block scripts %}
 
