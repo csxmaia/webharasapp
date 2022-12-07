@@ -1,6 +1,8 @@
 {% extends './user.html' %}
 
 {% load static %}
+{% load to_list %}
+{% load to_list %}
 
 {% block conteudo_dashboard %}
 <div class="d-flex justify-content-between pb-2">
@@ -14,6 +16,7 @@
 </div>
 <div>
     <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% to_list 'EM ANÁLISE' 'VENDIDO' 'REPROVADO' 'APROVADO' as desabilitar %}
         {% for cavalo in todos_cavalos_usuario_EM_ANALISE %}
         <div class="col d-flex justify-content-center">
             <div class="card shadow-sm" style="width: 18rem;">
@@ -28,7 +31,7 @@
                         </span>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% include "components/status_badget_view.html" with status=cavalo.obj.cavalo.status %}
+                    {% include "components/status_badget.html" with objectclass='cavalo' id=cavalo.obj.cavalo.pk status=cavalo.obj.cavalo.status desabilitar_list=desabilitar %}
                 </div>
                 <div class="card-footer">
                     <p class="card-text">
@@ -48,6 +51,7 @@
 </div>
 <div>
     <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% to_list 'EM ANÁLISE' 'REPROVADO' 'APROVADO' as desabilitar %}
         {% for cavalo in todos_cavalos_usuario_NAO_EM_ANALISE %}
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
@@ -62,7 +66,7 @@
                         </span>
                         {{cavalo.obj.cavalo.data_nascimento|date:'d/m/Y'}}
                     </p>
-                    {% include "components/status_badget_view.html" with status=cavalo.obj.cavalo.status %}
+                    {% include "components/status_badget.html" with objectclass='cavalo' id=cavalo.obj.cavalo.pk status=cavalo.obj.cavalo.status desabilitar_list=desabilitar %}
                 </div>
                  <div class="card-footer">
                     <p class="card-text">

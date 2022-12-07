@@ -92,7 +92,11 @@ class AlterarStatusCavalo(View):
                 cavalo.save()
 
                 messages.success(self.request, "{nome_cavalo} ({id_cavalo}) alterado para {status}".format(nome_cavalo=cavalo.nome, id_cavalo=cavalo.pk, status=cavalo.status.capitalize()))
-                return redirect("admin-dashboard-cavalos")
+                
+                if(user.groups.filter(name="Administrador").exists()):
+                    return redirect("admin-dashboard-cavalos")
+                else:
+                     return redirect("dashboard-cavalos")
 
 
 class DeletarCavalo(View):
@@ -106,4 +110,8 @@ class DeletarCavalo(View):
 
                 messages.success(self.request, "{nome_cavalo} deletado com sucesso!".format(
                     nome_cavalo=nome_cavalo))
-                return redirect("admin-dashboard-cavalos")
+                    
+                if(user.groups.filter(name="Administrador").exists()):
+                    return redirect("admin-dashboard-cavalos")
+                else:
+                     return redirect("dashboard-cavalos")

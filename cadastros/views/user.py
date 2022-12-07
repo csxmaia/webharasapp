@@ -1,5 +1,5 @@
 from django.views.generic.edit import CreateView, UpdateView
-from cadastros.forms.user import UsuarioForm
+from cadastros.forms.user import PerfilForm, UsuarioForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -29,8 +29,7 @@ class UsuarioCreate(CreateView):
 
 class PerfilUpdate(UpdateView):
     template_name = 'cadastros/form.html'
-    model = Perfil
-    fields = ["nome_completo", "cpf", "telefone", "whatsapp", "cidade"]
+    form_class = PerfilForm
     success_url = reverse_lazy("index")
 
     def get_object(self, queryset=None):

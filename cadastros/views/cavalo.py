@@ -10,7 +10,7 @@ from cadastros.models import Cavalo, Imagem
 class CavaloCreate(LoginRequiredMixin, CreateView):
     form_class = CavaloImagemForm
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard-cavalos')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -44,7 +44,7 @@ class CavaloCreate(LoginRequiredMixin, CreateView):
 class CavaloUpdate(LoginRequiredMixin, UpdateView):
     form_class = CavaloImagemForm
     template_name = 'cadastros/cavalo_form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard-cavalos')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

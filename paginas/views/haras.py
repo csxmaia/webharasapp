@@ -79,7 +79,11 @@ class AlterarStatusHaras(View):
                 haras.save()
 
                 messages.success(self.request, "{nome_haras} ({id_haras}) alterado para {status}".format(nome_haras=haras.nome, id_haras=haras.pk, status=haras.status.capitalize()))
-                return redirect("admin-dashboard-haras")
+                
+                if(user.groups.filter(name="Administrador").exists()):
+                    return redirect("admin-dashboard-haras")
+                else:
+                     return redirect("dashboard-haras")
 
 
 class DeletarHaras(View):
@@ -100,4 +104,8 @@ class DeletarHaras(View):
 
 
                 messages.success(self.request, "{nome_haras} deletado com sucesso!".format(nome_haras=nome_haras))
-                return redirect("admin-dashboard-haras")
+
+                if(user.groups.filter(name="Administrador").exists()):
+                    return redirect("admin-dashboard-haras")
+                else:
+                     return redirect("dashboard-haras")

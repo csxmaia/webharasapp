@@ -1,16 +1,19 @@
 {% extends './admin.html' %}
 
 {% load static %}
-{% load make_list %}
+{% load to_list %}
 
 {% block conteudo_dashboard %}
 <div class="mb-4">
+    
+    {% if todos_cavalos_em_analise %}
     <div class="pb-2">
         <h2>Cavalos pendentes de aprovação<h2>
     </div>
+    {% endif %}
     <div>
         <div class="row row-cols-1 row-cols-md-5 g-4">
-            {% make_list 'EM ANÁLISE' 'VENDIDO' as desabilitar %}
+            {% to_list 'EM ANÁLISE' 'VENDIDO' as desabilitar %}
             {% for cavalo in todos_cavalos_em_analise %}
             <div class="col d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
@@ -39,11 +42,14 @@
 </div>
 
 <div class="mb-2">
+    
+    {% if todos_cavalos_aprovados_reprovados %}
     <div class="pb-2">
         <h2>Cavalos Aprovados e Reprovados<h2>
     </div>
+    {% endif %}
     <div class="row row-cols-1 row-cols-md-5 g-4">
-            {% make_list 'APROVADO' as desabilitar %}
+            {% to_list 'APROVADO' as desabilitar %}
             {% for cavalo in todos_cavalos_aprovados_reprovados %}
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">
@@ -71,11 +77,13 @@
 </div>
 
 <div class="mb-2">
+    {% if todos_cavalos_vendidos %}
     <div class="pb-2">
         <h2>Cavalos Vendidos<h2>
     </div>
+    {% endif %}
     <div class="row row-cols-1 row-cols-md-5 g-4">
-            {% make_list 'REPROVADO' 'EM ANÁLISE' as desabilitar %}
+            {% to_list 'REPROVADO' 'EM ANÁLISE' as desabilitar %}
             {% for cavalo in todos_cavalos_vendidos %}
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 18rem;">

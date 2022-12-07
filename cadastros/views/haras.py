@@ -12,7 +12,7 @@ from cadastros.models import Haras
 class HarasCreate(LoginRequiredMixin, CreateView):
     form_class = HarasForm
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard-haras')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -37,7 +37,7 @@ class HarasCreate(LoginRequiredMixin, CreateView):
 class HarasUpdate(LoginRequiredMixin, UpdateView):
     form_class = HarasForm
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard-haras')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

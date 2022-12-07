@@ -32,7 +32,7 @@
                         <td>
                             <a href="{% url 'editar-raca' obj.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw "></i></a>
                             <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletar" data-bs-id="{{obj.pk}}" data-url="{% url 'deletar-'|add:'raca' obj.pk %}"><i class="fas fa-trash fa-sm fa-fw "></i></a>
-                            {% include "components/modal_deletar.html" with objectclass='a raca' %}
+                            {% include "components/modal_deletar.html" with objectclass_name='a raca' %}
                         </td>
                     </tr>
                 {% empty %}

@@ -101,7 +101,7 @@
                         <div class="card-body">
                             <div class="mb-1">
                                 <h5 class="h5 card-title mb-0">{{cavalo.obj.cavalo.nome}}</h5>
-                                <div class="card-text text-muted">
+                                <div class="raca-cavalo card-text text-muted">
                                     {{cavalo.obj.cavalo.raca.nome}}
                                 </div>
                             </div>
@@ -168,6 +168,9 @@
             }
             if($("#filtro-habilidade").val()=="") {
                 $("#filtro-habilidade").attr("disabled", "disabled");
+            }
+            if($("#filtro-cidade").val()=="") {
+                $("#filtro-cidade").attr("disabled", "disabled");
             }
         });
      });

@@ -31,8 +31,10 @@
                     {% include "components/status_badget_view.html" with status=haras.status %}
                 </div>
                 <div class="card-footer">
-                    <p class="card-text">
+                    <p class="card-text d-flex justify-content-between">
                         <a href="{% url 'editar-haras' haras.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
+                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletar" data-bs-id="{{haras.pk}}" data-url="{% url 'deletar-'|add:'haras' haras.pk %}"><i class="fas fa-trash fa-sm fa-fw "></i></a>
+                        {% include "components/modal_deletar.html" with objectclass_name='o haras' %}
                     </p>
                 </div>
             </div>
@@ -64,8 +66,10 @@
                     {% include "components/status_badget_view.html" with status=haras.status %}
                 </div>
                  <div class="card-footer">
-                    <p class="card-text">
+                    <p class="card-text d-flex justify-content-between">
                         <a href="{% url 'editar-haras' haras.pk %}" class="btn btn-warning"><i class="fas fa-edit fa-sm fa-fw"></i></a>
+                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalDeletar" data-bs-id="{{haras.pk}}" data-url="{% url 'deletar-'|add:'haras' haras.pk %}"><i class="fas fa-trash fa-sm fa-fw "></i></a>
+                        {% include "components/modal_deletar.html" with objectclass_name='o haras' %}
                     </p>
                 </div>
             </div>

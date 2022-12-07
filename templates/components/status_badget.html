@@ -1,6 +1,6 @@
 {% load static %}
 
-<button id="dropdown-{{id}}" type="button" class="badge btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+<button id="dropdown-{{id}}" type="button" class="badge btn btn-primary dropdown-toggle disabled" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
     {% if status|upper == 'APROVADO'%}
         <i class="me-1 fas fa-check fa-sm fa-fw"></i><span>{{status}}</span></i>
         {% elif status|upper == 'EM ANÁLISE'%}
@@ -46,40 +46,43 @@
 
 <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
 <script>
-    switch('{{status}}') {
-        case 'EM ANÁLISE': 
-            $('#dropdown-{{id}}').addClass('btn-info')
-            $('#analise-{{id}}').addClass('bg-info text-white disabled')
-            break;
-            case 'REPROVADO': 
-            $('#dropdown-{{id}}').addClass('btn-danger')
-            $('#reprovar-{{id}}').addClass('bg-danger text-white disabled')
-            $('#vendido-{{id}}').addClass('visually-hidden')
-            break;
-            case 'APROVADO': 
-            $('#dropdown-{{id}}').addClass('btn-primary')
-            $('#aprovado-{{id}}').addClass('bg-primary text-white disabled')
-            break;
-            case 'VENDIDO': 
-            $('#dropdown-{{id}}').addClass('btn-success')
-            $('#vendido-{{id}}').addClass('bg-success text-white disabled')
-            break;
-    }
-
-    {% for desabilitar in desabilitar_list %}
-        switch('{{desabilitar}}') {
-            case 'EM ANÁLISE': 
-                $('#analise-{{id}}').addClass('visually-hidden')
-                break;
-            case 'REPROVADO': 
-                $('#reprovar-{{id}}').addClass('visually-hidden')
-                break;
-            case 'APROVADO': 
-                $('#aprovado-{{id}}').addClass('visually-hidden')
-                break;
-            case 'VENDIDO': 
-                $('#vendido-{{id}}').addClass('visually-hidden')
-                break;
-        }
-    {% endfor %}
+    $(document).ready(function() {
+            $('#dropdown-{{id}}').removeClass('disabled')
+            switch('{{status}}') {
+                case 'EM ANÁLISE': 
+                    $('#dropdown-{{id}}').addClass('btn-info')
+                    $('#analise-{{id}}').addClass('bg-info text-white disabled')
+                    break;
+                    case 'REPROVADO': 
+                    $('#dropdown-{{id}}').addClass('btn-danger')
+                    $('#reprovar-{{id}}').addClass('bg-danger text-white disabled')
+                    $('#vendido-{{id}}').addClass('visually-hidden')
+                    break;
+                    case 'APROVADO': 
+                    $('#dropdown-{{id}}').addClass('btn-primary')
+                    $('#aprovado-{{id}}').addClass('bg-primary text-white disabled')
+                    break;
+                    case 'VENDIDO': 
+                    $('#dropdown-{{id}}').addClass('btn-success')
+                    $('#vendido-{{id}}').addClass('bg-success text-white disabled')
+                    break;
+            }
+            console.log('{{desabilitar_list}}')
+            {% for desabilitar in desabilitar_list %}
+                switch('{{desabilitar}}') {
+                    case 'EM ANÁLISE': 
+                        $('#analise-{{id}}').addClass('visually-hidden')
+                        break;
+                    case 'REPROVADO': 
+                        $('#reprovar-{{id}}').addClass('visually-hidden')
+                        break;
+                    case 'APROVADO': 
+                        $('#aprovado-{{id}}').addClass('visually-hidden')
+                        break;
+                    case 'VENDIDO': 
+                        $('#vendido-{{id}}').addClass('visually-hidden')
+                        break;
+                }
+            {% endfor %}
+    })
 </script>

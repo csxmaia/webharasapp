@@ -42,7 +42,7 @@ class IndexView(TemplateView):
 
         cavalos_query = Cavalo.objects.filter(filters).order_by('-id')
 
-        paginator = Paginator(cavalos_query, 15)
+        paginator = Paginator(cavalos_query, 10)
 
         page_number = self.request.GET.get('page', 1)
 

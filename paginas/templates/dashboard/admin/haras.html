@@ -1,16 +1,18 @@
 {% extends './admin.html' %}
 
 {% load static %}
-{% load make_list %}
+{% load to_list %}
 {% load replace %}
 
 {% block conteudo_dashboard %}
+{% if todos_cavalos_em_analise|length != 0 %}
 <div class="pb-2">
     <h2>Haras pendentes de aprovação<h2>
 </div>
+{% endif %}
 <div>
     <div class="row row-cols-1 row-cols-md-5 g-4">
-        {% make_list 'EM ANÁLISE' 'VENDIDO' as desabilitar %}
+        {% to_list 'EM ANÁLISE' 'VENDIDO' as desabilitar %}
         {% for haras in todos_cavalos_em_analise %}
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">
@@ -36,11 +38,14 @@
         {% endfor %}
     </div>
 </div>
+
+{% if todos_cavalos_aprovados|length != 0 %}
 <div class="pb-2">
     <h2>Haras<h2>
 </div>
+{% endif %}
 <div class="row row-cols-1 row-cols-md-5 g-4">
-        {% make_list 'APROVADO' 'VENDIDO' as desabilitar %}
+        {% to_list 'APROVADO' 'VENDIDO' as desabilitar %}
         {% for haras in todos_cavalos_aprovados %}
         <div class="col d-flex justify-content-center">
             <div class="card" style="width: 18rem;">

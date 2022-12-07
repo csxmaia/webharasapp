@@ -76,6 +76,7 @@ TEMPLATES = [
                 'has_group': 'webharas.templatetags.has_group',
                 'query_transform': 'webharas.templatetags.query_transform',
                 'make_list': 'webharas.templatetags.make_list',
+                'to_list': 'webharas.templatetags.to_list',
                 'replace': 'webharas.templatetags.replace',
             }
         },
